@@ -17,10 +17,10 @@ export default function App() {
   const checkAnswer = (guess) => {
     if (guess === questions[currentQuestion].correct) {
       dispatch(incrementScore());
-      setCorrect(correct.push('correct'))
+      setCorrect(oldCorrect => [...oldCorrect, true]);
     }
     if (guess !== questions[currentQuestion].correct) {
-      setCorrect(correct.push('incorrect'))
+      setCorrect(oldCorrect => [...oldCorrect, false]);
     }
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
@@ -47,7 +47,7 @@ export default function App() {
       </div>
     );
   } else if (step === 'summary') {
-    display = <Summary questions={questions} restartQuiz={restartQuiz} />;
+    display = <Summary questions={questions} restartQuiz={restartQuiz} correct={correct} />;
   }
 
   return (

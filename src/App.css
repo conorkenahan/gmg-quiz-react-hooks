@@ -49,3 +49,11 @@
   width: 100px;
   margin: 10px auto auto auto;
 }
+
+.correct {
+  color: green;
+}
+
+.incorrect{
+  color: red;
+}
