@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementScore } from './actions';
 import Question from './Components/Question/Question';
+import Answers from './Components/Answers/Answers';
 import Summary from './Components/Summary/Summary';
 
 export default function App() {
   const questions = useSelector((state) => state.questions);
+  const dispatch = useDispatch();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [step, setStep] = useState('start');
+  const [correct, setCorrect] = useState([]);
 
   const checkAnswer = (guess) => {
-    console.log(guess);
+    if (guess === questions[currentQuestion].correct) {
+      dispatch(incrementScore());
+      setCorrect(correct.push('correct'))
+    }
+    if (guess !== questions[currentQuestion].correct) {
+      setCorrect(correct.push('incorrect'))
+    }
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setStep('summary');
+    }
+  }
+
+  const restartQuiz = () => {
+    setCurrentQuestion(0);
+    setStep('start');
+    setCorrect([]);
   }
 
   let display;
@@ -21,13 +43,11 @@ export default function App() {
     display = (
       <div>
         <Question questions={questions} currentQuestion={currentQuestion} />
-        {questions[currentQuestion].answers.map((answer) => (
-          <button onClick={() => checkAnswer()}>{answer}</button>
-        ))}
+        <Answers questions={questions} currentQuestion={currentQuestion} checkAnswer={checkAnswer} />
       </div>
     );
-  } else if (step === ' summary') {
-    display = <Summary />;
+  } else if (step === 'summary') {
+    display = <Summary questions={questions} restartQuiz={restartQuiz} />;
   }
 
   return (

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Question() {
+export default function Question({ questions, currentQuestion }) {
   return (
     <div className="Question">
-      Question
+      {questions[currentQuestion].title}
     </div>
   );
 }

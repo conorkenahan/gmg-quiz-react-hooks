@@ -37,3 +37,15 @@
     transform: translateY(0px);
   }
 }
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin: auto;
+}
+
+.answer {  
+  width: 100px;
+  margin: 10px auto auto auto;
+}
