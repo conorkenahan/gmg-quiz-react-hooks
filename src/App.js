@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { incrementScore } from './actions';
+import { incrementScore, resetScore } from './actions';
 import Question from './Components/Question/Question';
 import Answers from './Components/Answers/Answers';
 import Summary from './Components/Summary/Summary';
@@ -34,6 +34,7 @@ export default function App() {
     setCurrentQuestion(0);
     setStep('start');
     setCorrect([]);
+    dispatch(resetScore());
   }
 
   let display;

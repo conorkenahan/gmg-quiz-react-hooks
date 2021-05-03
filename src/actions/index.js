@@ -3,3 +3,9 @@ export const incrementScore = () => {
         type: 'INCREMENT'
     }
 }
+
+export const resetScore = () => {
+    return {
+        type: 'RESET'
+    }
+}
